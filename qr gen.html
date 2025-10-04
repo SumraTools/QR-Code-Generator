@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sumra Tools - QR Code Generator</title>
+<style>
+/* General setup */
+body {
+  margin: 0;
+  background: #0a0a0a;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* Title */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #00ff88;
+  text-shadow: 0 0 20px #00ff88;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; }
+  to { text-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88; }
+}
+
+/* Input and button */
+#urlInput {
+  padding: 15px;
+  font-size: 1.2rem;
+  width: 300px;
+  max-width: 80%;
+  border: 2px solid #00ff88;
+  border-radius: 10px;
+  background: #000;
+  color: #00ff88;
+  outline: none;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+#urlInput:focus {
+  box-shadow: 0 0 15px #00ff88;
+}
+
+#generateBtn {
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  border: 2px solid #00ff88;
+  border-radius: 12px;
+  background: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#generateBtn:hover {
+  background: #00ff88;
+  color: black;
+  box-shadow: 0 0 20px #00ff88 inset, 0 0 25px #00ff88;
+  transform: scale(1.05);
+}
+
+/* QR Code container */
+#qrcode {
+  margin-top: 30px;
+  padding: 20px;
+  background: #111;
+  border-radius: 12px;
+  box-shadow: 0 0 25px #00ff88 inset;
+}
+</style>
+</head>
+<body>
+
+<h1>QR Code Generator ✓</h1>
+
+<input type="text" id="urlInput" placeholder="Enter URL here" />
+<button id="generateBtn">Generate QR Code</button>
+
+<div id="qrcode"></div>
+
+<!-- Include QRCode.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const generateBtn = document.getElementById("generateBtn");
+const urlInput = document.getElementById("urlInput");
+const qrcodeDiv = document.getElementById("qrcode");
+let qrcode;
+
+generateBtn.addEventListener("click", () => {
+  const url = urlInput.value.trim();
+  if (!url) return alert("Please enter a URL!");
+
+  // Clear previous QR code
+  qrcodeDiv.innerHTML = "";
+
+  // Generate new QR code
+  qrcode = new QRCode(qrcodeDiv, {
+    text: url,
+    width: 250,
+    height: 250,
+    colorDark: "#00ff88",
+    colorLight: "#111",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+});
+</script>
+
+</body>
+</html>
